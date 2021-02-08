@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 # TODO: SimpleCov required here...
+require 'simplecov'
+SimpleCov.start 'rails'
 
-
-
-ENV["RAILS_ENV"] ||= "test"
-require File.expand_path('../../config/environment', __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'contexts'
-
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -15,7 +16,7 @@ class ActiveSupport::TestCase
   include Contexts
 
   # Prof. H's helper method to increase readability
-  def deny(condition, msg="")
+  def deny(condition, msg = '')
     assert !condition, msg
   end
 
@@ -23,7 +24,7 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all
+  # fixtures :all
 
   # Add more helper methods to be used by all tests here...
 end
