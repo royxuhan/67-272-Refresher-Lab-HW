@@ -35,4 +35,24 @@ class ChildTest < ActiveSupport::TestCase
       assert_equal %w[Alex Mark], Child.active.alphabetical.map(&:first_name)
     end
   end
+
+  context 'Creating a full context' do
+    setup do
+      create_children
+      create_tasks
+      create_chores
+    end
+
+    teardown do
+      destroy_children
+      destroy_tasks
+      destroy_chores
+    end
+
+    should 'have points earned methods that count the number of task points they earn' do
+      assert_equal 4, @alex.points_earned
+      assert_equal 1, @mark.points_earned
+      assert_equal 0, @rachel.points_earned
+    end
+  end
 end
