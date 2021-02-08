@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class ChoresController < ApplicationController
-  before_action :set_chore, only: [:show, :edit, :update, :destroy]
+  before_action :set_chore, only: %i[show edit update destroy]
 
   # GET /chores
   # GET /chores.json
   def index
-    @chores = Chore.all
+    @chores = Chore.chronological.by_task.all
   end
 
   # GET /chores/1
   # GET /chores/1.json
-  def show
-  end
+  def show; end
 
   # GET /chores/new
   def new
@@ -18,8 +19,7 @@ class ChoresController < ApplicationController
   end
 
   # GET /chores/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /chores
   # POST /chores.json
@@ -62,13 +62,14 @@ class ChoresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chore
-      @chore = Chore.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def chore_params
-      params.require(:chore).permit(:child_id, :task_id, :due_on, :completed)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chore
+    @chore = Chore.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def chore_params
+    params.require(:chore).permit(:child_id, :task_id, :due_on, :completed)
+  end
 end

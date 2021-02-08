@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class ChildrenController < ApplicationController
-  before_action :set_child, only: [:show, :edit, :update, :destroy]
+  before_action :set_child, only: %i[show edit update destroy]
 
   # GET /children
   # GET /children.json
   def index
-    @children = Child.all
+    @children = Child.alphabetical
   end
 
   # GET /children/1
   # GET /children/1.json
-  def show
-  end
+  def show; end
 
   # GET /children/new
   def new
@@ -18,8 +19,7 @@ class ChildrenController < ApplicationController
   end
 
   # GET /children/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /children
   # POST /children.json
@@ -62,13 +62,14 @@ class ChildrenController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_child
-      @child = Child.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def child_params
-      params.require(:child).permit(:first_name, :last_name, :active)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_child
+    @child = Child.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def child_params
+    params.require(:child).permit(:first_name, :last_name, :active)
+  end
 end
